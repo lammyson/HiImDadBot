@@ -33,7 +33,8 @@ find_package(re2 REQUIRED)
 add_executable(HiImDadBot
    src/dad_bot.cpp
    src/message_listener.cpp
-   src/main.cpp)
+   src/main.cpp
+   src/slash_commands.cpp)
 
 target_link_libraries(HiImDadBot
    PRIVATE
