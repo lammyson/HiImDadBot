@@ -1,5 +1,6 @@
 #pragma once
 
+#include <dpp/dispatcher.h>
 #include <dpp/dpp.h>
 
 namespace dad_bot {
@@ -10,13 +11,7 @@ public:
    /// @param event Message event
    static void on_message_create(const dpp::message_create_t& event);
 
-   /// @brief Sets the bot
-   /// @param bot discord bot
-   static void set_bot(dpp::cluster& bot);
-
-private:
-   /// @brief Pointer to the bot
-   static dpp::cluster* bot;
+   static void on_message_update(const dpp::message_update_t& event);
 };
 
 }  // namespace dad_bot

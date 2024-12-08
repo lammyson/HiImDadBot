@@ -23,11 +23,11 @@ auto main() -> int {
 
       // Create the bot and set some simple stuff
       dpp::cluster bot(bot_token, dpp::i_default_intents | dpp::i_message_content);
-      dad_bot::message_listener::set_bot(bot);
       bot.on_log(dpp::utility::cout_logger());
 
       // Forward messages to the message listener
       bot.on_message_create(&dad_bot::message_listener::on_message_create);
+      bot.on_message_update(&dad_bot::message_listener::on_message_update);
 
       // Forward slash commands to the slash command listener
       bot.on_slashcommand(&dad_bot::on_slash_command);
@@ -37,6 +37,7 @@ auto main() -> int {
          if (dpp::run_once<struct register_bot_commands>()) {
             for (const auto& slash_command_info : dad_bot::slash_command_infos)
             {
+               std::cout << "Adding slashcommand='" << slash_command_info.command << "' with description='" << slash_command_info.desciption << "'\n";
                bot.global_command_create(dpp::slashcommand(std::string(slash_command_info.command), std::string(slash_command_info.desciption), bot.me.id));
             }
          }

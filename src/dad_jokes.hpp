@@ -7,15 +7,35 @@ namespace dad_bot::dad_jokes {
 
 using namespace std::string_view_literals;
 constexpr std::array jokes = {
-    "Dad: Anytime we're driving and I see a bunch of cows I always say: Look a flock of cows!\n"sv
-    "Kid: Herd of cows dad\n"sv
-    "Dad: Of course I've heard of them, there's a flock of them right over there!"sv,
+    "```Dad: Anytime we're driving and I see a bunch of cows I always say: Look a flock of cows! 🐄🐄🐄🐄🐄\n"
+    "Kid: Herd of cows dad 🐄🐄🐄🐄🐄\n"
+    "Dad: Of course I've heard of them, there's a flock of them right over there! 🐄🐄🐄🐄🐄```"sv,
 
-    "(Driving past a graveyard)\n"sv
-    "Dad: Look it's the dead centre of town. People are just dying to get in there. But did you know nobody who lives around here is allowed to be buried there?\n"sv
-    "Kid: Why?\n"sv
-    "Dad: Because you aren't allowed to bury people who are still living"sv,
+    "```(Driving past a graveyard) 💀\n"
+    "Dad: Look it's the dead centre of town. People are just dying to get in there. But did you know nobody who lives around here is allowed to be buried there?\n"
+    "Kid: Why?\n"
+    "Dad: Because you aren't allowed to bury people who are still living```"sv,
 
-    "How do you know when your clock is still hungry?\n"sv
-    "It goes back four seconds"sv};
+    "```How do you know when your clock is still hungry? 🕒\n"
+    "It goes back four seconds```"sv,
+
+   "```Little kid: Dada, can you put my clothes on? 👚\n"
+   "Dad: Okay! (Starts dressing himself in child's clothes)\n"
+   "Kid: No, put them on ME!\n"
+   "Dad: Ohhh. (Folds clothes, places them on child's head)```"sv,
+
+   "```You guys wanna hear a joke about pizza? 🍕\n"
+   "Nevermind...it's too cheesy 🧀```"sv,
+
+   "```What do you call a fish with no eyes?\n"
+   "Fsh 🐟```"sv,
+
+   "```I love telling dad jokes\n"
+   "They always make him laugh```"sv,
+
+   "```Hi hungry! I'm dad! 🤣😂```"sv,
+
+   "```What is an alligator's favorite drink?\n"
+   "Gatorade! ⚡```"sv
+};
 }  // namespace dad_bot::dad_jokes
