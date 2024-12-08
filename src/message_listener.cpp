@@ -1,15 +1,18 @@
 #include "message_listener.hpp"
+
 #include <dpp/message.h>
 #include <dpp/unicode_emoji.h>
-
-#include "dad_bot.hpp"
 
 #include <iostream>
 #include <vector>
 
+#include "dad_bot.hpp"
+
+namespace dad_bot {
+
 dpp::cluster* message_listener::bot = nullptr;
 
-void message_listener::on_message_create(const dpp::message_create_t &event) {
+void message_listener::on_message_create(const dpp::message_create_t& event) {
    if (event.msg.author.is_bot()) {
       return;
    }
@@ -26,6 +29,6 @@ void message_listener::on_message_create(const dpp::message_create_t &event) {
    }
 }
 
-void message_listener::set_bot(dpp::cluster& bot) {
-   message_listener::bot = &bot;
-}
+void message_listener::set_bot(dpp::cluster& bot) { message_listener::bot = &bot; }
+
+}  // namespace dad_bot

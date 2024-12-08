@@ -2,6 +2,8 @@
 
 #include <dpp/dpp.h>
 
+namespace dad_bot {
+
 class message_listener {
 public:
    /// @brief Processes a message
@@ -16,3 +18,5 @@ private:
    /// @brief Pointer to the bot
    static dpp::cluster* bot;
 };
+
+}  // namespace dad_bot
