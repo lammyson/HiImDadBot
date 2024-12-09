@@ -41,7 +41,27 @@ constexpr std::array jokes = {
     "Gatorade! ⚡```"sv,
 
     "```Whats blue and not that heavy?\n"
-    "Light blue```"sv
+    "Light blue 🟦```"sv,
+
+    "```Kid: I'll call you later.\n"
+    "Dad: Please, call me Dad.```"sv,
+
+    "```Kid: Did you get a haircut? 💈\n"
+    "Dad: No, I got them all cut.```"sv,
+
+    "```Do you know why you never see elephants hiding in trees?\n"
+    "It's because they're so good at it. 🐘```"sv,
+
+    "```Which days are the strongest?\n"
+    "Saturday and Sunday. The rest are weekdays.```"sv,
+
+    "```I'm reading a horror story in braille. Something bad is going to happen, I can just feel it.```"sv,
+
+    "```In 2017 I didn't do a marathon. I didn't do one in 2018, 2019, or 2020, either. This is a running joke.```"sv,
+
+    "```My friend claims he glued himself to his autobiography. I don't believe him, but that's his story and he's sticking to it.```"sv,
+
+    "```What's brown and sticky? A stick.```"sv
 };
 
 }  // namespace dad_bot::dad_jokes
