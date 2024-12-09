@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <ostream>
 
+using namespace std::literals;
+
 namespace dad_bot {
 
 /// @brief Helper method to print a vector to an output stream
@@ -29,10 +31,10 @@ auto HiImDadBot_Code(std::string_view input) -> std::vector<std::string> {
                   [](unsigned char uchar) { return std::tolower(uchar); });
 
    // Find all the different variations of " I am " " Iam " " I'm " " Im " and record their positions
-   constexpr std::array<std::string, 4> targets = {"i'm ", "im ", "i am ", "iam "};
-   std::vector<std::string::size_type> positions;
+   constexpr std::array targets = {"i'm "sv, R"(i"m )"sv, "i‘m "sv, "i’m "sv, "i“m "sv, "i”m "sv, "im "sv, "i am "sv, "iam "sv};
+   std::vector<std::string_view::size_type> positions;
    for (const auto& target : targets) {
-      std::string::size_type pos = 0;
+      std::string_view::size_type pos = 0;
       while ((pos = lowercase_input.find(target, pos)) != std::string::npos) {
          positions.emplace_back(pos);
          pos += target.length();
@@ -66,7 +68,7 @@ auto HiImDadBot_Code(std::string_view input) -> std::vector<std::string> {
 auto HiImDadBot_Regex(std::string_view input) -> std::string {
    // Finds an occurence of "I'm" or something like it, at least 1 space, and then captures
    // all the text afterwards until the first punctuation or end of line
-   static const RE2 regex(R"(^.*[i|I]['|\s]?[a|A]?[m|M]\s+(?s:(.*?))\s*(?:[?!.,;].*|$))");
+   static const RE2 regex(R"(^.*[i|I]['|"|‘|’|“|”|\s]?[a|A]?[m|M]\s+(?s:(.*?))\s*(?:[?!.,;].*|$))");
    assert(regex.ok());
 
    std::string name;

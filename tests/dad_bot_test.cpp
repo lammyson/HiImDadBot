@@ -79,7 +79,7 @@ const auto ImCaseParamGenerator = testing::ConvertGenerator<ImCaseParams::TupleT
    testing::Combine(
       testing::Values("", "           ", "man ", "☠ "),
       testing::Values("i", "I"),
-      testing::Values("", "'"),
+      testing::Values("", "'", R"(")", "‘", "’", "“", "”"),
       testing::Values("m", "M"),
       testing::Values("hungry", "🐕"),
       testing::Values("", "!", "?", ".", ",", "       ", ",.!?  ")));
