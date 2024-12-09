@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.11.0...3.31.2)
 project(HiImDadBot VERSION 0.1.0 LANGUAGES CXX)
 
 # Set C++23 and create compile_commands.json
@@ -60,6 +60,8 @@ endif()
 
 install(TARGETS HiImDadBot RUNTIME DESTINATION bin)
 
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+set(BUILD_TYPE $<CONFIG>)
+set(CPACK_PROPERTIES_FILE "${CMAKE_BINARY_DIR}/${PROJECT_NAME}CPackProperties.cmake")
+file(GENERATE OUTPUT "${CMAKE_BINARY_DIR}/${PROJECT_NAME}CPackProperties.cmake" #allows use of generator expression to retrieve CONFIG
+      CONTENT "set(CPACK_PACKAGE_FILE_NAME ${PROJECT_NAME}-${PROJECT_VERSION}-\$\{CPACK_SYSTEM_NAME\}-${BUILD_TYPE}\)\n")
 include(CPack)

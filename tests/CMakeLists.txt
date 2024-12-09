@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.11.0...3.31.2)
 project(tests LANGUAGES CXX)
 
 include(FetchContent)
