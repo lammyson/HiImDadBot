@@ -38,7 +38,10 @@ constexpr std::array jokes = {
     "```Hi hungry! I'm dad! 🤣😂```"sv,
 
     "```What is an alligator's favorite drink?\n"
-    "Gatorade! ⚡```"sv
+    "Gatorade! ⚡```"sv,
+
+    "```Whats blue and not that heavy?\n"
+    "Light blue```"sv
 };
 
 }  // namespace dad_bot::dad_jokes
