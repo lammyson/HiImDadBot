@@ -5,13 +5,20 @@
 
 namespace dad_bot {
 
-class message_listener {
-public:
-   /// @brief Processes a message
-   /// @param event Message event
-   static void on_message_create(const dpp::message_create_t& event);
+namespace message_listener {
 
-   static void on_message_update(const dpp::message_update_t& event);
-};
+/// @brief Processes a new message.
+/// Replies with "Hi <blank>! I'm dad!" if it detects a variation of "I'm ".
+/// Reacts with a 👋 to the message
+/// @param event Message create event
+void on_message_create(const dpp::message_create_t& event);
+
+/// @brief Processes an updated message.
+/// Replies with "Hi <blank>! I'm dad!" if it detects a variation of "I'm ".
+/// Reacts with a 👋 to the message
+/// @param event Message update event
+void on_message_update(const dpp::message_update_t& event);
+
+};  // namespace message_listener
 
 }  // namespace dad_bot

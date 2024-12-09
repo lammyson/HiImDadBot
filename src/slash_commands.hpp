@@ -6,15 +6,22 @@
 #include <string_view>
 
 namespace dad_bot {
+
 using namespace std::string_view_literals;
 
-// List of slash commands with descriptions
+/// @brief Dad joke slash command string
 constexpr std::string_view dad_joke_command = "dadjoke"sv;
+
+/// @brief Holds a slash command with a description
 struct slash_command_info {
+   /// @brief Slash command text
    std::string_view command;
-   std::string_view desciption;
+   /// @brief Slash command description
+   std::string_view description;
 };
-constexpr std::array slash_command_infos {slash_command_info{dad_joke_command, "Tell a dad joke!"sv}};
+
+/// @brief List of slash commands with descriptions
+constexpr std::array slash_command_infos{slash_command_info{dad_joke_command, "Tell a dad joke!"sv}};
 
 /// @brief Processes a slash command
 /// @param event Slash command event

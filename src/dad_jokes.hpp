@@ -5,7 +5,9 @@
 
 namespace dad_bot::dad_jokes {
 
-using namespace std::string_view_literals;
+using namespace std::literals::string_view_literals;
+
+/// @brief A list of dad jokes
 constexpr std::array jokes = {
     "```Dad: Anytime we're driving and I see a bunch of cows I always say: Look a flock of cows! 🐄🐄🐄🐄🐄\n"
     "Kid: Herd of cows dad 🐄🐄🐄🐄🐄\n"
@@ -19,23 +21,24 @@ constexpr std::array jokes = {
     "```How do you know when your clock is still hungry? 🕒\n"
     "It goes back four seconds```"sv,
 
-   "```Little kid: Dada, can you put my clothes on? 👚\n"
-   "Dad: Okay! (Starts dressing himself in child's clothes)\n"
-   "Kid: No, put them on ME!\n"
-   "Dad: Ohhh. (Folds clothes, places them on child's head)```"sv,
+    "```Little kid: Dada, can you put my clothes on? 👚\n"
+    "Dad: Okay! (Starts dressing himself in child's clothes)\n"
+    "Kid: No, put them on ME!\n"
+    "Dad: Ohhh. (Folds clothes, places them on child's head)```"sv,
 
-   "```You guys wanna hear a joke about pizza? 🍕\n"
-   "Nevermind...it's too cheesy 🧀```"sv,
+    "```You guys wanna hear a joke about pizza? 🍕\n"
+    "Nevermind...it's too cheesy 🧀```"sv,
 
-   "```What do you call a fish with no eyes?\n"
-   "Fsh 🐟```"sv,
+    "```What do you call a fish with no eyes?\n"
+    "Fsh 🐟```"sv,
 
-   "```I love telling dad jokes\n"
-   "They always make him laugh```"sv,
+    "```I love telling dad jokes\n"
+    "They always make him laugh```"sv,
 
-   "```Hi hungry! I'm dad! 🤣😂```"sv,
+    "```Hi hungry! I'm dad! 🤣😂```"sv,
 
-   "```What is an alligator's favorite drink?\n"
-   "Gatorade! ⚡```"sv
+    "```What is an alligator's favorite drink?\n"
+    "Gatorade! ⚡```"sv
 };
+
 }  // namespace dad_bot::dad_jokes

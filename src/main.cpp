@@ -1,7 +1,7 @@
 #include <dpp/dpp.h>
+#include <dpp/misc-enum.h>
 
 #include <cstdlib>
-#include <iostream>
 #include <stdexcept>
 #include <string>
 
@@ -10,7 +10,6 @@
 
 auto main() -> int {
    try {
-
       // Get the BOT_TOKEN
       constexpr rsize_t bot_token_max_size = 100;
       std::size_t bot_token_actual_size = 0;
@@ -35,10 +34,12 @@ auto main() -> int {
       // Register slash commands once on startup
       bot.on_ready([&bot](const dpp::ready_t&) {
          if (dpp::run_once<struct register_bot_commands>()) {
-            for (const auto& slash_command_info : dad_bot::slash_command_infos)
-            {
-               std::cout << "Adding slashcommand='" << slash_command_info.command << "' with description='" << slash_command_info.desciption << "'\n";
-               bot.global_command_create(dpp::slashcommand(std::string(slash_command_info.command), std::string(slash_command_info.desciption), bot.me.id));
+            for (const auto& slash_command_info : dad_bot::slash_command_infos) {
+               bot.log(dpp::loglevel::ll_debug, "Adding slashcommand='" + std::string(slash_command_info.command) +
+                                                    "' with description='" +
+                                                    std::string(slash_command_info.description) + "'");
+               bot.global_command_create(dpp::slashcommand(std::string(slash_command_info.command),
+                                                           std::string(slash_command_info.description), bot.me.id));
             }
          }
       });
@@ -47,10 +48,10 @@ auto main() -> int {
       bot.start(dpp::st_wait != 0U);
 
    } catch (const dpp::exception& e) {
-      std::cerr << "dpp::exception=" << e.what() << "\n";
+      std::cerr << "dpp::exception='" << e.what() << "'\n";
       return 1;
    } catch (const std::exception& e) {
-      std::cerr << "std::exception=" << e.what() << "\n";
+      std::cerr << "std::exception='" << e.what() << "'\n";
       return 1;
    } catch (...) {
       std::cerr << "Caught unknown exception" << "\n";
