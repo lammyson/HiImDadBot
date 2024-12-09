@@ -1,5 +1,7 @@
 # HiImDadBot
 
+A Discord bot written in C++. It replies with `Hi <blank>! I'm dad!` whenever it detects a variation of the word `I'm `. It also contains a `/dadjoke` slash command that replies with a random dad joke
+
 # Dependencies
 - [DPP](https://github.com/brainboxdotcc/DPP)
   - Recommend installing a release build as it contains additional dependencies

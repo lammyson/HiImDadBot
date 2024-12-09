@@ -58,6 +58,8 @@ if (ENABLE_TESTS)
    add_subdirectory(tests)
 endif()
 
+install(TARGETS HiImDadBot RUNTIME DESTINATION bin)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
