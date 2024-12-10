@@ -11,11 +11,8 @@
 auto main() -> int {
    try {
       // Get the BOT_TOKEN
-      constexpr rsize_t bot_token_max_size = 100;
-      std::size_t bot_token_actual_size = 0;
-      std::array<char, bot_token_max_size> bot_token_value{};
-      const auto err = getenv_s(&bot_token_actual_size, bot_token_value.data(), bot_token_value.size(), "BOT_TOKEN");
-      const std::string bot_token = (bot_token_actual_size == 0 || err != 0) ? "" : bot_token_value.data();
+      const auto* bot_token_ptr = getenv("BOT_TOKEN");
+      const std::string bot_token = bot_token_ptr == nullptr ? "" : std::string(bot_token_ptr);
       if (bot_token.empty()) {
          throw std::runtime_error("BOT_TOKEN environment variable must be defined!");
       }
