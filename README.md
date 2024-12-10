@@ -4,7 +4,9 @@ A Discord bot written in C++. It replies with `Hi <blank>! I'm dad!` whenever it
 
 # Dependencies
 - [DPP](https://github.com/brainboxdotcc/DPP)
-  - Recommend installing a prebuilt release as it contains additional dependencies
+  - Recommend installing a prebuilt release
+- [Opus](https://github.com/xiph/opus)
+  - If on Linux, this will need to be installed to satisfy DPP's dependencies
 - [OpenSSL](https://github.com/openssl/openssl)
 
 ## Included Dependencies
