@@ -61,7 +61,14 @@ constexpr std::array jokes = {
 
     "```My friend claims he glued himself to his autobiography. I don't believe him, but that's his story and he's sticking to it.```"sv,
 
-    "```What's brown and sticky? A stick.```"sv
+    "```What's brown and sticky?\n"
+    "A stick.```"sv,
+
+    "```What do you call a bee from the United States?\n"
+    "A USB.```"sv,
+
+    "```What do you call a calculator that works instantly?\n"
+    "A calcu-now 🧮```"sv
 };
 
 }  // namespace dad_bot::dad_jokes
