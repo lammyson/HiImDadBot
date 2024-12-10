@@ -68,7 +68,10 @@ constexpr std::array jokes = {
     "A USB.```"sv,
 
     "```What do you call a calculator that works instantly?\n"
-    "A calcu-now 🧮```"sv
+    "A calcu-now 🧮```"sv,
+
+    "```What is a skeleton's favorite snack?\n"
+    "🦴 Spare ribs! 🦴```"sv
 };
 
 }  // namespace dad_bot::dad_jokes
