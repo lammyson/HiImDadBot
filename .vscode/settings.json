@@ -1,5 +1,4 @@
 {
-    "cmake.generator": "Ninja",
     "C_Cpp.intelliSenseEngine": "disabled",
     "C_Cpp.codeAnalysis.runAutomatically": false,
     "C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
