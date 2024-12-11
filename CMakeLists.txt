@@ -33,31 +33,29 @@ FetchContent_MakeAvailable(re2)
 find_package(dpp REQUIRED)
 find_package(re2 REQUIRED)
 
-# Main executable
-add_executable(HiImDadBot
+# Make library of all source files
+add_library(HiImDadBot_lib
    src/dad_bot.cpp
    src/message_listener.cpp
-   src/main.cpp
    src/slash_commands.cpp)
-target_link_libraries(HiImDadBot
+target_link_libraries(HiImDadBot_lib
    PRIVATE
       dpp::dpp
       re2::re2)
+
+# Main executable
+add_executable(HiImDadBot
+   src/main.cpp)
+target_link_libraries(HiImDadBot
+   PRIVATE
+      dpp::dpp
+      re2::re2
+      HiImDadBot_lib)
 
 # Tests
 if (ENABLE_TESTS)
    include(CTest)
    enable_testing()
-
-   # Library used for testing
-   add_library(HiImDadBot_library
-      src/dad_bot.cpp
-      src/message_listener.cpp)
-   target_link_libraries(HiImDadBot_library
-      PRIVATE
-         dpp::dpp
-         re2::re2)
-
    add_subdirectory(tests)
 endif()
 

@@ -22,7 +22,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
    PRIVATE
       GTest::gmock_main
-      HiImDadBot_library)
+      HiImDadBot_lib)
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME})
