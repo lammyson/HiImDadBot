@@ -65,7 +65,7 @@ constexpr std::array jokes = {
     "A stick.```"sv,
 
     "```What do you call a bee from the United States?\n"
-    "A USB.```"sv,
+    "A USB. 🐝```"sv,
 
     "```What do you call a calculator that works instantly?\n"
     "A calcu-now 🧮```"sv,
