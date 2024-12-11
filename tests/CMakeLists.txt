@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.11.0...3.31.2)
 project(tests LANGUAGES CXX)
 
+# Get some dependencies
 include(FetchContent)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# googletest library for the testing framework
+set(gtest_force_shared_crt ON)
 FetchContent_Declare(
    GTest
    GIT_REPOSITORY https://github.com/google/googletest.git
@@ -10,16 +13,12 @@ FetchContent_Declare(
    OVERRIDE_FIND_PACKAGE)
 FetchContent_MakeAvailable(GTest)
 
+# tests executable
 add_executable(${PROJECT_NAME}
    dad_bot_test.cpp)
-
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 23)
-
-# TODO - Can this be automatically done or something?
 target_include_directories(${PROJECT_NAME}
    PRIVATE
       ../src)
-
 target_link_libraries(${PROJECT_NAME}
    PRIVATE
       GTest::gmock_main
