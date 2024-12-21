@@ -71,7 +71,10 @@ constexpr std::array jokes = {
     "A calcu-now 🧮```"sv,
 
     "```What is a skeleton's favorite snack?\n"
-    "🦴 Spare ribs! 🦴```"sv
+    "🦴 Spare ribs! 🦴```"sv,
+
+    "```We forgot the jars again\n"
+    "What a jarring revelation```"sv
 };
 
 }  // namespace dad_bot::dad_jokes
