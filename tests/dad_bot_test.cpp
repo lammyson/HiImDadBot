@@ -2,23 +2,10 @@
 #include "gtest/gtest.h"
 #include "slugify.hpp"
 
-#include <ostream>
 #include <string>
 #include <string_view>
 #include <tuple>
 #include <vector>
-
-template<class T>
-auto operator<<(std::ostream& stream, std::vector<T>& vec) -> std::ostream& {
-   stream << "[\n";
-   if (!vec.empty()) {
-      for (const auto& type : vec) {
-         stream << "\t'" << type << "'\n";
-      }
-   }
-   stream << "]\n";
-   return stream;
-}
 
 // Test cases for testing that "I am" in some variation is found
 struct IamCaseParams {
@@ -63,7 +50,7 @@ TEST_P(IamCaseTest, IamCase) {
    const auto& param = GetParam();
    const std::string input = param.before_text + param.i + param.space + param.a + param.m + " " + param.expected + param.after_text;
    const std::vector<std::string> actual = dad_bot::HiImDadBot(input);
-   EXPECT_EQ(std::vector<std::string>{param.expected}, actual) << "input='" << input << "'\nexpected='" << param.expected;// << "'\nactual='" << actual << "'\n";
+   EXPECT_EQ(std::vector<std::string>{param.expected}, actual) << "input='" << input << "'\nexpected='" << param.expected << "'\nactual='" << ::testing::PrintToString(actual) << "'\n";
 }
 
 INSTANTIATE_TEST_SUITE_P(HiImDadBot, IamCaseTest, IamCaseParamGenerator, IamCaseNameGenerator);
@@ -108,7 +95,7 @@ TEST_P(ImCaseTest, Normal) {
    const auto& param = GetParam();
    const std::string input = param.before_text + param.i + param.apostrophe + param.m + " " + param.expected + param.after_text;
    const std::vector<std::string> actual = dad_bot::HiImDadBot(input);
-   EXPECT_EQ(std::vector<std::string>{param.expected}, actual) << "input='" << input << "'\nexpected='" << param.expected;// << "'\nactual='" << actual << "'\n";
+   EXPECT_EQ(std::vector<std::string>{param.expected}, actual) << "input='" << input << "'\nexpected='" << param.expected << "'\nactual='" << ::testing::PrintToString(actual) << "'\n";
 }
 
 INSTANTIATE_TEST_SUITE_P(HiImDadBot, ImCaseTest, ImCaseParamGenerator, ImCaseNameGenerator);
@@ -137,7 +124,7 @@ TEST_P(DadBotTest, TestSomething) {
    {
       expected.push_back(param.expected);
    }
-   EXPECT_EQ(expected, actual) << "input='" << param.input << "'\nexpected='" << param.expected;// << "'\nactual='" << actual << "'\n";
+   EXPECT_EQ(expected, actual) << "input='" << param.input << "'\nexpected='" << param.expected << "'\nactual='" << ::testing::PrintToString(actual) << "'\n";
 }
 
 INSTANTIATE_TEST_SUITE_P(HiImDadBot, DadBotTest,
