@@ -2,9 +2,23 @@
 #include "gtest/gtest.h"
 #include "slugify.hpp"
 
-#include <tuple>
+#include <ostream>
 #include <string>
 #include <string_view>
+#include <tuple>
+#include <vector>
+
+template<class T>
+auto operator<<(std::ostream& stream, std::vector<T>& vec) -> std::ostream& {
+   stream << "[\n";
+   if (!vec.empty()) {
+      for (const auto& type : vec) {
+         stream << "\t'" << type << "'\n";
+      }
+   }
+   stream << "]\n";
+   return stream;
+}
 
 // Test cases for testing that "I am" in some variation is found
 struct IamCaseParams {
@@ -48,11 +62,11 @@ const auto IamCaseNameGenerator =
 TEST_P(IamCaseTest, IamCase) {
    const auto& param = GetParam();
    const std::string input = param.before_text + param.i + param.space + param.a + param.m + " " + param.expected + param.after_text;
-   const std::string actual = dad_bot::HiImDadBot_Regex(input);
-   EXPECT_EQ(param.expected, actual) << "input='" << input << "'\nexpected='" << param.expected << "'\nactual='" << actual << "'\n";
+   const std::vector<std::string> actual = dad_bot::HiImDadBot(input);
+   EXPECT_EQ(std::vector<std::string>{param.expected}, actual) << "input='" << input << "'\nexpected='" << param.expected;// << "'\nactual='" << actual << "'\n";
 }
 
-INSTANTIATE_TEST_SUITE_P(HiImDadBot_Regex, IamCaseTest, IamCaseParamGenerator, IamCaseNameGenerator);
+INSTANTIATE_TEST_SUITE_P(HiImDadBot, IamCaseTest, IamCaseParamGenerator, IamCaseNameGenerator);
 
 // Test cases for testing that "I'm" in some variation is found
 struct ImCaseParams {
@@ -93,19 +107,19 @@ const auto ImCaseNameGenerator =
 TEST_P(ImCaseTest, Normal) {
    const auto& param = GetParam();
    const std::string input = param.before_text + param.i + param.apostrophe + param.m + " " + param.expected + param.after_text;
-   const std::string actual = dad_bot::HiImDadBot_Regex(input);
-   EXPECT_EQ(param.expected, actual) << "input='" << input << "'\nexpected='" << param.expected << "'\nactual='" << actual << "'\n";
+   const std::vector<std::string> actual = dad_bot::HiImDadBot(input);
+   EXPECT_EQ(std::vector<std::string>{param.expected}, actual) << "input='" << input << "'\nexpected='" << param.expected;// << "'\nactual='" << actual << "'\n";
 }
 
-INSTANTIATE_TEST_SUITE_P(HiImDadBot_Regex, ImCaseTest, ImCaseParamGenerator, ImCaseNameGenerator);
+INSTANTIATE_TEST_SUITE_P(HiImDadBot, ImCaseTest, ImCaseParamGenerator, ImCaseNameGenerator);
 
 
 // Other test cases
 struct DadBotTestParams {
    using TupleT = std::tuple<std::string_view, std::string_view, std::string_view>;
-   std::string_view input;
-   std::string_view expected;
-   std::string_view test_case_name;
+   std::string input;
+   std::string expected;
+   std::string test_case_name;
    DadBotTestParams(TupleT t) :
       input(std::get<0>(t)),
       expected(std::get<1>(t)),
@@ -117,11 +131,16 @@ class DadBotTest : public testing::TestWithParam<DadBotTestParams> {};
 
 TEST_P(DadBotTest, TestSomething) {
    const auto& param = GetParam();
-   const std::string actual = dad_bot::HiImDadBot_Regex(param.input);
-   EXPECT_EQ(param.expected, actual) << "input='" << param.input << "'\nexpected='" << param.expected << "'\nactual='" << actual << "'\n";
+   const std::vector<std::string> actual = dad_bot::HiImDadBot(param.input);
+   std::vector<std::string> expected;
+   if (!param.expected.empty())
+   {
+      expected.push_back(param.expected);
+   }
+   EXPECT_EQ(expected, actual) << "input='" << param.input << "'\nexpected='" << param.expected;// << "'\nactual='" << actual << "'\n";
 }
 
-INSTANTIATE_TEST_SUITE_P(HiImDadBot_Regex, DadBotTest,
+INSTANTIATE_TEST_SUITE_P(HiImDadBot, DadBotTest,
    testing::Values(
       std::make_tuple("I'm hungry", "hungry", "Normal"),
       std::make_tuple("I'm hungry!", "hungry", "Normal"),
@@ -134,7 +153,7 @@ INSTANTIATE_TEST_SUITE_P(HiImDadBot_Regex, DadBotTest,
       std::make_tuple("imwoeifj aowj", "", "Normal"),
       std::make_tuple("wawefiojimawoei aowoeiim aweofiwe.", "aweofiwe", "Normal")),
    [](const testing::TestParamInfo<DadBotTest::ParamType>& info) {
-      std::string name = std::to_string(info.index) + "_" + std::string(info.param.test_case_name) + "_" + std::string(info.param.input) + "_" + std::string(info.param.expected);
+      std::string name = std::to_string(info.index) + "_" + info.param.test_case_name + "_" + info.param.input + "_" + info.param.expected;
       return slugify(name);
    });
 
@@ -147,14 +166,14 @@ TEST(HiImDadBot, Multiple_Im_Iam) {
    EXPECT_EQ(24U, names.size());
 }
 
-TEST(HiImDadBot_Regex, Newline) {
+TEST(HiImDadBot, Newline) {
    std::string input = "I'm According to all known laws\nof aviation,";
    std::vector<std::string> names = dad_bot::HiImDadBot(input);
    std::vector<std::string> expected = {"According to all known laws\nof aviation"};
    EXPECT_EQ(expected, names);
 }
 
-TEST(HiImDadBot_Regex, Tab) {
+TEST(HiImDadBot, Tab) {
    std::string input = "I'm According to all known laws\tof aviation,";
    std::vector<std::string> names = dad_bot::HiImDadBot(input);
    std::vector<std::string> expected = {"According to all known laws\tof aviation"};

@@ -24,6 +24,17 @@ void PrintVector(const std::vector<T>& vec, std::ostream& stream) {
    stream << "]\n";
 }
 
+auto HiImDadBot_Regex(std::string_view input) -> std::string {
+   // Finds an occurence of "I'm" or something like it, at least 1 space, and then captures
+   // all the text afterwards until the first punctuation or end of line
+   static const RE2 regex(R"(^.*[i|I]['|"|‘|’|“|”|\s]?[a|A]?[m|M]\s+(?s:(.*?))\s*(?:[?!.,;].*|$))");
+   assert(regex.ok());
+
+   std::string name;
+   RE2::FullMatch(input, regex, &name);
+   return name;
+}
+
 auto HiImDadBot(std::string_view input) -> std::vector<std::string> {
    // Make the input lowercase
    std::string lowercase_input = std::string(input);
@@ -63,17 +74,6 @@ auto HiImDadBot(std::string_view input) -> std::vector<std::string> {
    names.erase(last, names.end());
 
    return names;
-}
-
-auto HiImDadBot_Regex(std::string_view input) -> std::string {
-   // Finds an occurence of "I'm" or something like it, at least 1 space, and then captures
-   // all the text afterwards until the first punctuation or end of line
-   static const RE2 regex(R"(^.*[i|I]['|"|‘|’|“|”|\s]?[a|A]?[m|M]\s+(?s:(.*?))\s*(?:[?!.,;].*|$))");
-   assert(regex.ok());
-
-   std::string name;
-   RE2::FullMatch(input, regex, &name);
-   return name;
 }
 
 }  // namespace dad_bot
