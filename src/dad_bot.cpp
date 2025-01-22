@@ -24,7 +24,7 @@ void PrintVector(const std::vector<T>& vec, std::ostream& stream) {
    stream << "]\n";
 }
 
-auto HiImDadBot_Code(std::string_view input) -> std::vector<std::string> {
+auto HiImDadBot(std::string_view input) -> std::vector<std::string> {
    // Make the input lowercase
    std::string lowercase_input = std::string(input);
    std::transform(lowercase_input.begin(), lowercase_input.end(), lowercase_input.begin(),

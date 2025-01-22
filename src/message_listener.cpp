@@ -19,7 +19,7 @@ void message_listener::on_message_create(const dpp::message_create_t& event) {
 
    // Try to find 1 or more instances of "I'm <something>" and return a list of 'names' to reply to
    // "Hi <something>! I'm dad!". Also react to the message with 👋
-   const std::vector<std::string> names = dad_bot::HiImDadBot_Code(event.msg.content);
+   const std::vector<std::string> names = dad_bot::HiImDadBot(event.msg.content);
    if (!names.empty()) {
       for (const auto& name : names) {
          event.from->creator->message_add_reaction(event.msg, dpp::unicode_emoji::wave);
@@ -39,7 +39,7 @@ void message_listener::on_message_update(const dpp::message_update_t& event) {
 
    // Try to find 1 or more instances of "I'm <something>" and return a list of 'names' to reply to
    // "Hi <something>! I'm dad!". Also react to the message with 👋
-   const std::vector<std::string> names = dad_bot::HiImDadBot_Code(event.msg.content);
+   const std::vector<std::string> names = dad_bot::HiImDadBot(event.msg.content);
    if (!names.empty()) {
       for (const auto& name : names) {
          event.from->creator->message_add_reaction(event.msg, dpp::unicode_emoji::wave);

@@ -138,25 +138,25 @@ INSTANTIATE_TEST_SUITE_P(HiImDadBot_Regex, DadBotTest,
       return slugify(name);
    });
 
-TEST(HiImDadBot_Code, Multiple_Im_Iam) {
+TEST(HiImDadBot, Multiple_Im_Iam) {
    std::string im_strings = "I'm apple. I'M bee. i'm cold. i'M different. Im early IM fairly weird!?!?!?! im giraffe iM here. ";
    std::string i_am_strings = "i am igloo. i aM jam. i Am KRAZY.i AM living I am money, I aM nori. i AM OSTRICH I AM      PERSON     ";
    std::string iam_strings = "iam queen iaM rYaN iAm see iAM tortoiseGit Iam underwater IaM vent IAm WaterIAM xylophone!3oirj o3rij23r0    ";
    std::string input = im_strings + i_am_strings + iam_strings;
-   std::vector<std::string> names = dad_bot::HiImDadBot_Code(input);
+   std::vector<std::string> names = dad_bot::HiImDadBot(input);
    EXPECT_EQ(24U, names.size());
 }
 
 TEST(HiImDadBot_Regex, Newline) {
    std::string input = "I'm According to all known laws\nof aviation,";
-   std::vector<std::string> names = dad_bot::HiImDadBot_Code(input);
+   std::vector<std::string> names = dad_bot::HiImDadBot(input);
    std::vector<std::string> expected = {"According to all known laws\nof aviation"};
    EXPECT_EQ(expected, names);
 }
 
 TEST(HiImDadBot_Regex, Tab) {
    std::string input = "I'm According to all known laws\tof aviation,";
-   std::vector<std::string> names = dad_bot::HiImDadBot_Code(input);
+   std::vector<std::string> names = dad_bot::HiImDadBot(input);
    std::vector<std::string> expected = {"According to all known laws\tof aviation"};
    EXPECT_EQ(expected, names);
 }
