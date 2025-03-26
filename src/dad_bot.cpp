@@ -3,6 +3,7 @@
 #include <re2/re2.h>
 
 #include <algorithm>
+#include <cctype>
 #include <ostream>
 
 using namespace std::literals;
@@ -49,24 +50,21 @@ auto HiImDadBot(std::string_view input) -> std::vector<std::string> {
    std::vector<std::string_view::size_type> positions;
    for (const auto& target : targets) {
       std::string_view::size_type pos = 0;
+
       while ((pos = lowercase_input.find(target, pos)) != std::string::npos) {
-         positions.emplace_back(pos);
+         // Only consider it a match if we're at the beginning of the input OR
+         // the previous character is a space or punctuation
+         if (pos == 0 || std::isspace(lowercase_input.at(pos-1)) != 0 || std::ispunct(lowercase_input.at(pos-1)) != 0 ) {
+            positions.emplace_back(pos);
+         }
          pos += target.length();
       }
    }
 
-   // Sort the positions found so substrings can be processed
-   std::ranges::sort(positions);
-
    // Get the phrases and put it through the regex to find the possible names
    std::vector<std::string> names;
-   for (int i = 0; i < positions.size(); ++i) {
-      const unsigned int start = positions.at(i);
-
-      // TODO - Maybe just make the end input.size()?
-      const unsigned int end = (i + 1) >= positions.size() ? input.size() : positions.at(i + 1);
-
-      const std::string name = HiImDadBot_Regex(input.substr(start, end - start));
+   for (const auto start_position : positions) {
+      const std::string name = HiImDadBot_Regex(input.substr(start_position, input.size()));
       if (!name.empty()) {
          names.emplace_back(name);
       }
