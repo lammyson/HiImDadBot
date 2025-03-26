@@ -3,9 +3,7 @@
 #include <dpp/dispatcher.h>
 #include <dpp/dpp.h>
 
-namespace dad_bot {
-
-namespace message_listener {
+namespace dad_bot::message_listener {
 
 /// @brief Processes a new message.
 /// Replies with "Hi <blank>! I'm dad!" if it detects a variation of "I'm ".
@@ -19,6 +17,4 @@ void on_message_create(const dpp::message_create_t& event);
 /// @param event Message update event
 void on_message_update(const dpp::message_update_t& event);
 
-};  // namespace message_listener
-
-}  // namespace dad_bot
+} // namespace dad_bot::message_listener

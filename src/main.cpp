@@ -6,7 +6,7 @@
 #include <string>
 
 #include "message_listener.hpp"
-#include "slash_commands.hpp"
+#include "slash_command.hpp"
 
 auto main() -> int {
    try {
@@ -26,12 +26,12 @@ auto main() -> int {
       bot.on_message_update(&dad_bot::message_listener::on_message_update);
 
       // Forward slash commands to the slash command listener
-      bot.on_slashcommand(&dad_bot::on_slash_command);
+      bot.on_slashcommand(&dad_bot::slash_command::on_slash_command);
 
       // Register slash commands once on startup
       bot.on_ready([&bot](const dpp::ready_t&) {
          if (dpp::run_once<struct register_bot_commands>()) {
-            for (const auto& slash_command_info : dad_bot::slash_command_infos) {
+            for (const auto& slash_command_info : dad_bot::slash_command::slash_command_infos) {
                bot.log(dpp::loglevel::ll_debug, "Adding slashcommand='" + std::string(slash_command_info.command) +
                                                     "' with description='" +
                                                     std::string(slash_command_info.description) + "'");

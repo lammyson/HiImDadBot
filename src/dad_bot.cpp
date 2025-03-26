@@ -9,6 +9,8 @@ using namespace std::literals;
 
 namespace dad_bot {
 
+// Helper functions
+namespace {
 /// @brief Helper method to print a vector to an output stream
 /// @tparam T Some type that can be printed by std::ostream
 /// @param vec Vector to print
@@ -34,11 +36,12 @@ auto HiImDadBot_Regex(std::string_view input) -> std::string {
    RE2::FullMatch(input, regex, &name);
    return name;
 }
+}
 
 auto HiImDadBot(std::string_view input) -> std::vector<std::string> {
    // Make the input lowercase
    std::string lowercase_input = std::string(input);
-   std::transform(lowercase_input.begin(), lowercase_input.end(), lowercase_input.begin(),
+   std::ranges::transform(lowercase_input, lowercase_input.begin(),
                   [](unsigned char uchar) { return std::tolower(uchar); });
 
    // Find all the different variations of " I am " " Iam " " I'm " " Im " and record their positions
@@ -53,7 +56,7 @@ auto HiImDadBot(std::string_view input) -> std::vector<std::string> {
    }
 
    // Sort the positions found so substrings can be processed
-   std::sort(positions.begin(), positions.end());
+   std::ranges::sort(positions);
 
    // Get the phrases and put it through the regex to find the possible names
    std::vector<std::string> names;
@@ -70,8 +73,8 @@ auto HiImDadBot(std::string_view input) -> std::vector<std::string> {
    }
 
    // Get rid of duplicate names
-   const auto last = std::unique(names.begin(), names.end());
-   names.erase(last, names.end());
+   const auto last = std::ranges::unique(names);
+   names.erase(std::ranges::begin(last), std::end(names));
 
    return names;
 }

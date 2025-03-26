@@ -37,7 +37,7 @@ find_package(re2 REQUIRED)
 add_library(HiImDadBot_lib
    src/dad_bot.cpp
    src/message_listener.cpp
-   src/slash_commands.cpp)
+   src/slash_command.cpp)
 target_link_libraries(HiImDadBot_lib
    PRIVATE
       dpp::dpp
