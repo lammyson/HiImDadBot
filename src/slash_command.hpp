@@ -19,6 +19,12 @@ constexpr auto select_option() -> std::string {
 constexpr auto select_description() -> std::string {
    return "Select which dad joke you want to hear";
 }
+constexpr auto ephemeral_option() -> std::string {
+   return "ephemeral";
+}
+constexpr auto ephemeral_description() -> std::string {
+   return "Whether the reply should be visible only to you or not (default is false)";
+}
 
 namespace slash_command {
 

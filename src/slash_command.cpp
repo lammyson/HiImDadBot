@@ -1,5 +1,7 @@
 #include "slash_command.hpp"
 
+#include <dpp/message.h>
+
 #include <random>
 #include <variant>
 
@@ -17,24 +19,38 @@ void on_slash_command(const dpp::slashcommand_t& event) {
 
       // Get all parameters
       const auto select_variant = event.get_parameter(dad_bot::select_option());
+      const auto ephemeral_variant = event.get_parameter(dad_bot::ephemeral_option());
 
       // Log what we got
       event.from->creator->log(dpp::loglevel::ll_debug,
          "on_slash_command='" + event.command.get_command_name() +
             (std::holds_alternative<int64_t>(select_variant) ? " " + dad_bot::select_option() + "=" + std::to_string(std::get<int64_t>(select_variant)) : "") +
+            (std::holds_alternative<bool>(ephemeral_variant) ? " " + dad_bot::ephemeral_option() + "=" + (std::get<bool>(ephemeral_variant) ? "true" : "false") : "") +
             "'");
+
+      // Check if we need to do an ephemeral reply or not
+      dpp::message_flags message_flags{};
+      if (std::holds_alternative<bool>(ephemeral_variant) && std::get<bool>(ephemeral_variant)) {
+         message_flags = dpp::message_flags::m_ephemeral;
+      }
 
       // No parameters so just reply with a random dad joke
       if (std::holds_alternative<std::monostate>(select_variant)) {
          const auto index = dist(mt19937);
-         event.reply("Random dad joke " + std::to_string(index) + '\n' + std::string(dad_bot::dad_jokes::jokes.at(index)));
+         event.reply(dpp::message(
+            "Random dad joke " + std::to_string(index) + '\n' +
+            std::string(dad_bot::dad_jokes::jokes.at(index)))
+               .set_flags(message_flags));
          return;
       }
 
       // Reply with a specific dad joke if the select subcommand exists
       if (std::holds_alternative<int64_t>(select_variant)) {
          const auto index = std::get<int64_t>(select_variant);
-         event.reply("Selected dad joke " + std::to_string(index) + '\n' + std::string(dad_bot::dad_jokes::jokes.at(index)));
+         event.reply(dpp::message(
+               "Selected dad joke " + std::to_string(index) + '\n' +
+               std::string(dad_bot::dad_jokes::jokes.at(index)))
+                  .set_flags(message_flags));
       }
    }
 }
