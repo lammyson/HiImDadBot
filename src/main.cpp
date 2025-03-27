@@ -1,3 +1,4 @@
+#include <dpp/appcommand.h>
 #include <dpp/dpp.h>
 #include <dpp/misc-enum.h>
 
@@ -5,6 +6,7 @@
 #include <stdexcept>
 #include <string>
 
+#include "dad_jokes.hpp"
 #include "message_listener.hpp"
 #include "slash_command.hpp"
 
@@ -31,13 +33,21 @@ auto main() -> int {
       // Register slash commands once on startup
       bot.on_ready([&bot](const dpp::ready_t&) {
          if (dpp::run_once<struct register_bot_commands>()) {
-            for (const auto& slash_command_info : dad_bot::slash_command::slash_command_infos) {
-               bot.log(dpp::loglevel::ll_debug, "Adding slashcommand='" + std::string(slash_command_info.command) +
-                                                    "' with description='" +
-                                                    std::string(slash_command_info.description) + "'");
-               bot.global_command_create(dpp::slashcommand(std::string(slash_command_info.command),
-                                                           std::string(slash_command_info.description), bot.me.id));
-            }
+            // Add dadjoke slash command
+            bot.log(dpp::loglevel::ll_debug, "Adding slashcommand='" + dad_bot::dadjoke_command() + "'"
+               " (description='" + dad_bot::dadjoke_description() + "')" +
+               " with optional integer option='" + dad_bot::select_option() + "'" +
+               " with range [0," + std::to_string(std::ssize(dad_bot::dad_jokes::jokes)-1) + "]"
+               " (description='" + dad_bot::select_description() + "'" +
+               " with optional boolean option='" + dad_bot::ephemeral_option() + "'" +
+               " with default=false"
+               " (description='" + dad_bot::ephemeral_description() + "'");
+            bot.global_command_create(dpp::slashcommand(dad_bot::dadjoke_command(), dad_bot::dadjoke_description(), bot.me.id)
+               .add_option(dpp::command_option(dpp::command_option_type::co_integer, dad_bot::select_option(), dad_bot::select_description())
+                  .set_min_value(0)
+                  .set_max_value(std::ssize(dad_bot::dad_jokes::jokes)-1))
+               .add_option(dpp::command_option(dpp::command_option_type::co_boolean, dad_bot::ephemeral_option(), dad_bot::ephemeral_description()))
+            );
          }
       });
 

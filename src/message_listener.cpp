@@ -15,7 +15,7 @@ void message_listener::on_message_create(const dpp::message_create_t& event) {
       return;
    }
 
-   event.from->creator->log(dpp::loglevel::ll_debug, "message create='" + event.msg.content + "'");
+   event.from->creator->log(dpp::loglevel::ll_debug, "on_message_create='" + event.msg.content + "'");
 
    // Try to find 1 or more instances of "I'm <something>" and return a list of 'names' to reply to
    // "Hi <something>! I'm dad!". Also react to the message with 👋
@@ -35,7 +35,7 @@ void message_listener::on_message_update(const dpp::message_update_t& event) {
       return;
    }
 
-   event.from->creator->log(dpp::loglevel::ll_debug, "message update='" + event.msg.content + "'");
+   event.from->creator->log(dpp::loglevel::ll_debug, "on_message_update='" + event.msg.content + "'");
 
    // Try to find 1 or more instances of "I'm <something>" and return a list of 'names' to reply to
    // "Hi <something>! I'm dad!". Also react to the message with 👋
