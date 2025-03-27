@@ -1,3 +1,4 @@
+#include <dpp/appcommand.h>
 #include <dpp/dpp.h>
 #include <dpp/misc-enum.h>
 
@@ -5,6 +6,7 @@
 #include <stdexcept>
 #include <string>
 
+#include "dad_jokes.hpp"
 #include "message_listener.hpp"
 #include "slash_command.hpp"
 
@@ -35,8 +37,16 @@ auto main() -> int {
                bot.log(dpp::loglevel::ll_debug, "Adding slashcommand='" + std::string(slash_command_info.command) +
                                                     "' with description='" +
                                                     std::string(slash_command_info.description) + "'");
-               bot.global_command_create(dpp::slashcommand(std::string(slash_command_info.command),
-                                                           std::string(slash_command_info.description), bot.me.id));
+               bot.global_command_create(
+                  dpp::slashcommand(std::string(slash_command_info.command), std::string(slash_command_info.description), bot.me.id)
+                        .add_option(
+                           dpp::command_option(dpp::command_option_type::co_integer, "index", "Select which dad joke you want to hear")
+                              .set_min_value(0)
+                              .set_max_value(std::ssize(dad_bot::dad_jokes::jokes)-1))
+                        .add_option(
+                           dpp::command_option(dpp::command_option_type::co_string, "all", "Print all dad jokes")
+                              .add_choice(dpp::command_option_choice("all", "all"))
+                        ));
             }
          }
       });
