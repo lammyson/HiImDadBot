@@ -34,14 +34,14 @@ auto main() -> int {
       bot.on_ready([&bot](const dpp::ready_t&) {
          if (dpp::run_once<struct register_bot_commands>()) {
             // Add dadjoke slash command
-            bot.log(dpp::loglevel::ll_debug, "Adding slashcommand='" + dad_bot::dadjoke_command() + "'"
+            bot.log(dpp::loglevel::ll_debug, "\nAdding slashcommand='" + dad_bot::dadjoke_command() + "'"
                " (description='" + dad_bot::dadjoke_description() + "')" +
-               " with optional integer option='" + dad_bot::select_option() + "'" +
+               " \n\twith optional integer option='" + dad_bot::select_option() + "'" +
                " with range [0," + std::to_string(std::ssize(dad_bot::dad_jokes::jokes)-1) + "]"
-               " (description='" + dad_bot::select_description() + "'" +
-               " with optional boolean option='" + dad_bot::ephemeral_option() + "'" +
+               " (description='" + dad_bot::select_description() + "')" +
+               " \n\twith optional boolean option='" + dad_bot::ephemeral_option() + "'" +
                " with default=false"
-               " (description='" + dad_bot::ephemeral_description() + "'");
+               " (description='" + dad_bot::ephemeral_description() + "')");
             bot.global_command_create(dpp::slashcommand(dad_bot::dadjoke_command(), dad_bot::dadjoke_description(), bot.me.id)
                .add_option(dpp::command_option(dpp::command_option_type::co_integer, dad_bot::select_option(), dad_bot::select_description())
                   .set_min_value(0)

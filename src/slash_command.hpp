@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include "dad_jokes.hpp"
+
 namespace dad_bot {
 
 /// @brief Dad joke slash command variables
@@ -17,13 +19,13 @@ constexpr auto select_option() -> std::string {
    return "select";
 }
 constexpr auto select_description() -> std::string {
-   return "Select which dad joke you want to hear";
+   return "Select which dad joke you want to hear. Valid range is [0," + std::to_string(std::ssize(dad_bot::dad_jokes::jokes)-1) + "]";
 }
 constexpr auto ephemeral_option() -> std::string {
    return "ephemeral";
 }
 constexpr auto ephemeral_description() -> std::string {
-   return "Whether the reply should be visible only to you or not (default is false)";
+   return "Whether the reply should be visible only to you or not. Default is false";
 }
 
 namespace slash_command {
