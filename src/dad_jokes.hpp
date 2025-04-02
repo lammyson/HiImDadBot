@@ -74,7 +74,29 @@ constexpr std::array jokes = {
     "🦴 Spare ribs! 🦴```"sv,
 
     "```We forgot the jars again\n"
-    "What a jarring revelation```"sv
+    "What a jarring revelation```"sv,
+
+    "```What do you call a pile of cats?\n"
+    "A meowntain 🐈⛰```"sv,
+
+    "```How do you count cows?\n"
+    "Use a cowculator 🐮🧮```"sv,
+
+    "```Dogs can't operate MRI machines but CAT scan```"sv,
+
+    R"(```Yesterday my sister said to me "You know things could always be worse. You could be stuck in the ground in a hole filled with water." Like I know she means well```)"sv,
+
+    "```What do you call a moose with no name?\n"
+    "Anonymoose```"sv,
+
+    "```If I had identical twin daughters, what would I call them?\n"
+    "Kate and Duplikate```"sv,
+
+    "```What do you say if you lose 25% of your roof?\n"
+    "oof```"sv,
+
+    "```What fruit likes to go on slides?\n"
+    "A kiwiiiiiiiiii 🥝```"sv,
 };
 
 }  // namespace dad_bot::dad_jokes
