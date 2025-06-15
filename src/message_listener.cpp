@@ -4,11 +4,47 @@
 #include <dpp/misc-enum.h>
 #include <dpp/unicode_emoji.h>
 
+#include <random>
 #include <vector>
 
 #include "dad_bot.hpp"
 
 namespace dad_bot {
+
+namespace {
+auto make_reply(const std::string& name) -> std::string
+{
+   static std::array dad_names = {
+      "dad",
+      "father",
+      "papa",
+      "baba",
+      "abba",
+      "padre",
+      "pops",
+      "patriarch",
+      "ama",
+      "sir",
+      "paterfamilias",
+      "ancestor",
+      "progenitor",
+      "begetter",
+      "pater",
+      "parent",
+      "ancestor",
+      "old man",
+      "vader"
+   };
+
+   // Provides a random number when selecting a random dad joke
+   static std::random_device rdev;
+   static std::mt19937 mt19937(rdev());
+   static std::uniform_int_distribution<unsigned int> dist(0, dad_names.size() - 1);
+
+   const auto index = dist(mt19937);
+   return "Hi `" + name + "`! I'm " + dad_names.at(index) + "!";
+}
+}
 
 void message_listener::on_message_create(const dpp::message_create_t& event) {
    if (event.msg.author.is_bot()) {
@@ -24,8 +60,7 @@ void message_listener::on_message_create(const dpp::message_create_t& event) {
       for (const auto& name : names) {
          event.from->creator->message_add_reaction(event.msg, dpp::unicode_emoji::wave);
 
-         const std::string im_dad_reply = "Hi `" + name + "`! I'm dad!";
-         event.reply(im_dad_reply, true);
+         event.reply(make_reply(name), true);
       }
    }
 }
@@ -44,8 +79,7 @@ void message_listener::on_message_update(const dpp::message_update_t& event) {
       for (const auto& name : names) {
          event.from->creator->message_add_reaction(event.msg, dpp::unicode_emoji::wave);
 
-         const std::string im_dad_reply = "Hi `" + name + "`! I'm dad!";
-         dpp::message msg_to_send{im_dad_reply};
+         dpp::message msg_to_send{make_reply(name)};
          msg_to_send.set_reference(event.msg.id);
          msg_to_send.channel_id = event.msg.channel_id;
          msg_to_send.allowed_mentions.replied_user = true;
