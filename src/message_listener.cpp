@@ -38,7 +38,7 @@ auto make_reply(const std::string& name) -> std::string
 
    // Provides a random number when selecting a random dad joke
    static std::random_device rdev;
-   static const std::mt19937 mt19937(rdev());
+   static std::mt19937 mt19937(rdev());
    static std::uniform_int_distribution<unsigned int> dist(0, dad_names.size() - 1);
 
    const auto index = dist(mt19937);
