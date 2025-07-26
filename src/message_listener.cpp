@@ -12,9 +12,12 @@
 namespace dad_bot {
 
 namespace {
+
+constexpr std::string wave_emoji = "👋";
+
 auto make_reply(const std::string& name) -> std::string
 {
-   static std::array dad_names = {
+   static constexpr std::array dad_names = {
       "dad",
       "father",
       "papa",
@@ -25,12 +28,9 @@ auto make_reply(const std::string& name) -> std::string
       "patriarch",
       "ama",
       "sir",
-      "paterfamilias",
       "ancestor",
       "progenitor",
       "begetter",
-      "pater",
-      "parent",
       "ancestor",
       "old man",
       "vader"
@@ -38,12 +38,13 @@ auto make_reply(const std::string& name) -> std::string
 
    // Provides a random number when selecting a random dad joke
    static std::random_device rdev;
-   static std::mt19937 mt19937(rdev());
+   static const std::mt19937 mt19937(rdev());
    static std::uniform_int_distribution<unsigned int> dist(0, dad_names.size() - 1);
 
    const auto index = dist(mt19937);
    return "Hi `" + name + "`! I'm " + dad_names.at(index) + "!";
 }
+
 }
 
 void message_listener::on_message_create(const dpp::message_create_t& event) {
@@ -58,7 +59,7 @@ void message_listener::on_message_create(const dpp::message_create_t& event) {
    const std::vector<std::string> names = dad_bot::HiImDadBot(event.msg.content);
    if (!names.empty()) {
       for (const auto& name : names) {
-         event.from->creator->message_add_reaction(event.msg, dpp::unicode_emoji::wave);
+         event.from->creator->message_add_reaction(event.msg, wave_emoji);
 
          event.reply(make_reply(name), true);
       }
@@ -77,7 +78,7 @@ void message_listener::on_message_update(const dpp::message_update_t& event) {
    const std::vector<std::string> names = dad_bot::HiImDadBot(event.msg.content);
    if (!names.empty()) {
       for (const auto& name : names) {
-         event.from->creator->message_add_reaction(event.msg, dpp::unicode_emoji::wave);
+         event.from->creator->message_add_reaction(event.msg, wave_emoji);
 
          dpp::message msg_to_send{make_reply(name)};
          msg_to_send.set_reference(event.msg.id);
