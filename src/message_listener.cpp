@@ -28,10 +28,6 @@ auto make_reply(const std::string& name) -> std::string
       "patriarch",
       "ama",
       "sir",
-      "ancestor",
-      "progenitor",
-      "begetter",
-      "ancestor",
       "old man",
       "vader"
    };
